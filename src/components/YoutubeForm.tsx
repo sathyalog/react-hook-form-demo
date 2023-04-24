@@ -7,6 +7,10 @@ type FormValues = {
   username: string;
   email: string;
   channel: string;
+  social: {
+    twitter: string;
+    facebook: string;
+  };
 };
 function YoutubeForm() {
   const form = useForm<FormValues>({
@@ -25,6 +29,10 @@ function YoutubeForm() {
         username: data.username,
         email: data.email,
         channel: data.website,
+        social: {
+          twitter: "@sathya",
+          facebook: "sathya",
+        },
       };
     },
   });
@@ -35,11 +43,11 @@ function YoutubeForm() {
     console.log("Form submission", data);
   };
   return (
-    <div>
+    <div className="form-control">
       <h1>YouTube Form({renderCount / 2})</h1>
       {/* renderCount / 2 is used here as react does 2 times render in dev mode */}
       <form onSubmit={handleSubmit(formSubmission)} noValidate>
-        <div>
+        <div className="form-control">
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -50,7 +58,7 @@ function YoutubeForm() {
           />
           <p className="error">{errors.username?.message}</p>
         </div>
-        <div>
+        <div className="form-control">
           <label htmlFor="email">E-mail</label>
           <input
             type="email"
@@ -79,7 +87,7 @@ function YoutubeForm() {
           />
           <p className="error">{errors.email?.message}</p>
         </div>
-        <div>
+        <div className="form-control">
           <label htmlFor="channel">Channel</label>
           <input
             type="text"
@@ -93,9 +101,27 @@ function YoutubeForm() {
           />
           <p className="error">{errors.channel?.message}</p>
         </div>
+        <div className="form-control">
+          <label htmlFor="twitter">Twitter</label>
+          <input
+            type="text"
+            id="twitter"
+            placeholder="Twitter ID"
+            {...register("social.twitter")}
+          />
+        </div>
+        <div className="form-control">
+          <label htmlFor="facebook">facebook</label>
+          <input
+            type="text"
+            id="facebook"
+            placeholder="facebook"
+            {...register("social.facebook")}
+          />
+        </div>
         <button>Submit</button>
-        <DevTool control={control} />
       </form>
+      <DevTool control={control} />
     </div>
   );
 }
