@@ -9,7 +9,25 @@ type FormValues = {
   channel: string;
 };
 function YoutubeForm() {
-  const form = useForm<FormValues>();
+  const form = useForm<FormValues>({
+    /* one way of dealing with 
+    defaultValues: {
+      username: "sathya",
+      email: "sathya@gmail.com",
+      channel: "channels",
+    },*/
+    defaultValues: async () => {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/users/1"
+      );
+      const data = await response.json();
+      return {
+        username: data.username,
+        email: data.email,
+        channel: data.website,
+      };
+    },
+  });
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
   renderCount++;

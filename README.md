@@ -7,6 +7,7 @@ Used @hookform/devtools in order to visualize the form elements and its properti
 Using of react hook form helps you to avoid multiple re-renders while using controlled form elements(which happens in React). To visualize it, we are showing renderCount on home page.
 
 Pls follow commits to notice the code changes for each adding feature
+https://github.com/sathyalog/react-hook-form-demo/commits/master
 
 Three pillars of dealing with forms
 
