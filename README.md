@@ -27,3 +27,5 @@ Form submission states
 2. isSubmitted
 3. isSubmitSuccessful
 4. submitCount
+
+Kindly check Yup & Zod libraries to validate schemas
