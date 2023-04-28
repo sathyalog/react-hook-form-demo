@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
@@ -50,19 +51,37 @@ function YoutubeForm() {
       };
     },
   });
-  const { register, control, handleSubmit, formState } = form;
+
+  const { register, control, handleSubmit, formState, watch } = form;
   const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
   });
+
   renderCount++;
+
   const formSubmission = (data: FormValues) => {
     console.log("Form submission", data);
   };
+
+  const watchUsername = watch(["username", "email"]); // watch("username") also works
+  const watchForm = watch();
+  console.log(watchUsername);
+
+  /*If you want to perform side affect after watching value then use useEffect and watch callback*/
+  useEffect(() => {
+    const subscription = watch((value) => {
+      console.log(value); // this console logs every time you type but renders happens once for each field
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   return (
     <div className="form-control">
       <h1>YouTube Form({renderCount / 2})</h1>
+      <h3>Watched values: {watchUsername}</h3>
+      <h4>Watch form: {JSON.stringify(watchForm)}</h4>
       {/* renderCount / 2 is used here as react does 2 times render in dev mode */}
       <form onSubmit={handleSubmit(formSubmission)} noValidate>
         <div className="form-control">
