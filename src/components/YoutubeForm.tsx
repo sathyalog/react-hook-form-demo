@@ -61,11 +61,21 @@ function YoutubeForm() {
     getValues,
     setValue,
   } = form;
-  const { errors, isDirty, isValid } = formState;
+  const {
+    errors,
+    isDirty,
+    isValid,
+    isSubmitting,
+    isSubmitted,
+    isSubmitSuccessful,
+    submitCount,
+  } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
   });
+
+  console.log({ isSubmitting, isSubmitted, isSubmitSuccessful, submitCount });
 
   renderCount++;
 
@@ -270,8 +280,8 @@ function YoutubeForm() {
         <button type="button" onClick={handleSetValue}>
           Set Username
         </button>
-        {/* Disable submit button if form is untouched or any errors in form */}
-        <button disabled={!isDirty || !isValid}>Submit</button>
+        {/* Disable submit button if form is untouched or any errors in form or while form submission*/}
+        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
       </form>
       <DevTool control={control} />
     </div>

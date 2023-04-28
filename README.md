@@ -20,3 +20,10 @@ As part of this application, we will see that
 1. How can we manage form data
 2. Submit form data
 3. Enforce validations and provide visual feedback
+
+Form submission states
+
+1. isSubmitting
+2. isSubmitted
+3. isSubmitSuccessful
+4. submitCount
