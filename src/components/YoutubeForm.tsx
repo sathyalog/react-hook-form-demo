@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, FieldErrors } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 let renderCount = 0;
@@ -61,7 +61,7 @@ function YoutubeForm() {
     getValues,
     setValue,
   } = form;
-  const { errors } = formState;
+  const { errors, isDirty, isValid } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
@@ -85,6 +85,10 @@ function YoutubeForm() {
     });
   };
 
+  const onError = (err: FieldErrors<FormValues>) => {
+    console.log("form error", err);
+  };
+
   /* const watchUsername = watch(["username", "email"]); // watch("username") also works
   const watchForm = watch();
   console.log(watchUsername);*/
@@ -104,7 +108,7 @@ function YoutubeForm() {
       {/* <h3>Watched values: {watchUsername}</h3>
       <h4>Watch form: {JSON.stringify(watchForm)}</h4> */}
       {/* renderCount / 2 is used here as react does 2 times render in dev mode */}
-      <form onSubmit={handleSubmit(formSubmission)} noValidate>
+      <form onSubmit={handleSubmit(formSubmission, onError)} noValidate>
         <div className="form-control">
           <label htmlFor="username">Username</label>
           <input
@@ -266,7 +270,8 @@ function YoutubeForm() {
         <button type="button" onClick={handleSetValue}>
           Set Username
         </button>
-        <button>Submit</button>
+        {/* Disable submit button if form is untouched or any errors in form */}
+        <button disabled={!isDirty || !isValid}>Submit</button>
       </form>
       <DevTool control={control} />
     </div>
