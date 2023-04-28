@@ -52,7 +52,15 @@ function YoutubeForm() {
     },
   });
 
-  const { register, control, handleSubmit, formState, watch, getValues } = form;
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    watch,
+    getValues,
+    setValue,
+  } = form;
   const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -67,6 +75,14 @@ function YoutubeForm() {
 
   const handleGetValues = () => {
     console.log("get values", getValues()); // getValues("username") or getValues(["username","email"]) also works
+  };
+
+  const handleSetValue = () => {
+    setValue("username", "sathya", {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
   };
 
   /* const watchUsername = watch(["username", "email"]); // watch("username") also works
@@ -244,6 +260,9 @@ function YoutubeForm() {
         </div>
         <button type="button" onClick={handleGetValues}>
           Get Values
+        </button>
+        <button type="button" onClick={handleSetValue}>
+          Set Username
         </button>
         <button>Submit</button>
       </form>
