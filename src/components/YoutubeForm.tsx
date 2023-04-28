@@ -197,6 +197,8 @@ function YoutubeForm() {
             placeholder="Twitter ID"
             {...register("social.twitter", {
               required: "Twitter is required",
+              disabled: watch("username") === "sathya", // once username is set to sathya then twitter disables automatically
+              // disabled: true,
             })}
           />
           <p className="error">{errors.social?.twitter?.message}</p>
