@@ -60,6 +60,7 @@ function YoutubeForm() {
     watch,
     getValues,
     setValue,
+    reset,
   } = form;
   const {
     errors,
@@ -98,6 +99,13 @@ function YoutubeForm() {
   const onError = (err: FieldErrors<FormValues>) => {
     console.log("form error", err);
   };
+
+  /* we can also reset form values on form submission */
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   /* const watchUsername = watch(["username", "email"]); // watch("username") also works
   const watchForm = watch();
@@ -280,8 +288,13 @@ function YoutubeForm() {
         <button type="button" onClick={handleSetValue}>
           Set Username
         </button>
+        <br />
         {/* Disable submit button if form is untouched or any errors in form or while form submission*/}
         <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
+        {/* reset will only reset user entered values but not default values */}
+        <button type="button" onClick={() => reset()}>
+          Reset
+        </button>
       </form>
       <DevTool control={control} />
     </div>
