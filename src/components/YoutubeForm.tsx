@@ -15,6 +15,8 @@ type FormValues = {
   phNumbers: {
     number: string;
   };
+  age: number;
+  dob: Date;
 };
 function YoutubeForm() {
   const form = useForm<FormValues>({
@@ -43,6 +45,8 @@ function YoutubeForm() {
             number: "",
           },
         ],
+        age: 0,
+        dob: new Date(),
       };
     },
   });
@@ -114,6 +118,36 @@ function YoutubeForm() {
             })}
           />
           <p className="error">{errors.channel?.message}</p>
+        </div>
+        <div className="form-control">
+          <label htmlFor="channel">Age</label>
+          <input
+            type="number"
+            id="age"
+            {...register("age", {
+              valueAsNumber: true,
+              required: {
+                value: true,
+                message: "Age is required",
+              },
+            })}
+          />
+          <p className="error">{errors.age?.message}</p>
+        </div>
+        <div className="form-control">
+          <label htmlFor="channel">Date of birth</label>
+          <input
+            type="date"
+            id="dob"
+            {...register("dob", {
+              valueAsDate: true,
+              required: {
+                value: true,
+                message: "Date of birth is required",
+              },
+            })}
+          />
+          <p className="error">{errors.dob?.message}</p>
         </div>
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
